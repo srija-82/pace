@@ -23,9 +23,8 @@ async function main() {
         title: "Finish PACE pitch deck",
         category: "WORK",
         priority: "HIGH",
-        difficulty: "HARD",
-        importance: "HIGH",
-        estimatedDuration: 90,
+        
+        
         dueDate: new Date(today.getTime() + 13 * 60 * 60 * 1000),
       },
       {
@@ -33,9 +32,7 @@ async function main() {
         title: "Submit hackathon build",
         category: "DEADLINE",
         priority: "URGENT",
-        difficulty: "MEDIUM",
-        importance: "HIGH",
-        estimatedDuration: 60,
+        
         dueDate: new Date(today.getTime() + 14 * 60 * 60 * 1000),
       },
       {
@@ -43,9 +40,7 @@ async function main() {
         title: "Book vet appointment",
         category: "PERSONAL",
         priority: "MEDIUM",
-        difficulty: "EASY",
-        importance: "LOW",
-        estimatedDuration: 15,
+        
         dueDate: new Date(today.getTime() + 48 * 60 * 60 * 1000),
       },
     ],
