@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+}
+
+enum TaskSource {
+  MANUAL
+  AI_SUGGESTED
+}
+
+enum PriorityLevel {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum TaskCategory {
+  WORK
+  PERSONAL
+  MEETINGS
+  DEADLINE
+  OTHER
+}
+
+enum HabitFrequency {
+  DAILY
+  WEEKLY
+  CUSTOM
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String?
+  email        String   @unique
+  passwordHash String?
+  isGuest      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  tasks          Task[]
+  habits         Habit[]
+  calendarEvents CalendarEvent[]
+  scheduleBlocks ScheduleBlock[]
+}
+
+model Task {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  dueDate     DateTime?
+  startTime   DateTime?
+  endTime     DateTime?
+  estimatedDurationMinutes Int?
+  priority    PriorityLevel @default(MEDIUM)
+  difficulty  DifficultyLevel @default(MEDIUM)
+  importance  PriorityLevel @default(MEDIUM)
+  category    TaskCategory  @default(OTHER)
+  status      TaskStatus    @default(PENDING)
+  source      TaskSource    @default(MANUAL)
+  completionPercent Int     @default(0)
+  aiContextNotes String?
+  reminderAt  DateTime?
+  scheduleBlocks ScheduleBlock[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([userId, status])
+  @@index([userId, dueDate])
+}
+
+model Habit {
+  id              String         @id @default(cuid())
+  userId          String
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title           String
+  frequency       HabitFrequency @default(DAILY)
+  streakCount     Int            @default(0)
+  lastCompletedAt DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([userId])
+}
+
+model CalendarEvent {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  startTime   DateTime
+  endTime     DateTime
+  source      String   @default("manual")
+  isBusyBlock Boolean  @default(true)
+  category    TaskCategory @default(OTHER)
+  createdAt   DateTime @default(now())
+
+  @@index([userId, startTime])
+}
+
+model ScheduleBlock {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  taskId        String?
+  task          Task?    @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  date          DateTime
+  startTime     DateTime
+  endTime       DateTime
+  generatedByAi Boolean  @default(false)
+  aiRationale   String?
+  createdAt     DateTime @default(now())
+
+  @@index([userId, date])
+}

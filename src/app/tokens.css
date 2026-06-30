@@ -1,0 +1,47 @@
+:root {
+  /* Base */
+  --bg-canvas: #0d0f12;
+  --bg-sidebar: #101216;
+  --bg-card: #15171b;
+  --bg-input: #1a1c20;
+  --border-default: #23262b;
+  --border-subtle: #1c1e22;
+  --border-input: #2a2d33;
+
+  /* Text */
+  --text-primary: #e8e6df;
+  --text-secondary: #c9cdd3;
+  --text-tertiary: #7a7f87;
+  --text-quiet: #5c6066;
+
+  /* Brand */
+  --accent-cream: #e8dfca;
+
+  /* Priority / urgency */
+  --urgent: #e24b4a;
+  --urgent-bg: rgba(226, 75, 74, 0.15);
+  --urgent-fg: #f0a3a3;
+  --medium: #ef9f27;
+  --medium-bg: rgba(239, 159, 39, 0.15);
+  --medium-fg: #f4c373;
+  --low: #639922;
+  --low-bg: rgba(99, 153, 34, 0.15);
+  --low-fg: #a8d36e;
+
+  /* Calendar categories */
+  --cat-meetings: #378add;
+  --cat-work: #1d9e75;
+  --cat-deadline: #d85a30;
+  --cat-personal: #7f77dd;
+  --cat-other: #888780;
+
+  /* AI panel gradient */
+  --ai-gradient: linear-gradient(135deg, #7f77dd, #1f8fe5);
+  --ai-glow: rgba(127, 119, 221, 0.4);
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-control: 7px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+}
