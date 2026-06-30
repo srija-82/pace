@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
   const [title, setTitle] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<any[]>([]);
   const [schedule, setSchedule] = useState("");
   async function loadTasks() {
   const res = await fetch("/api/tasks");
